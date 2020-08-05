@@ -19,7 +19,7 @@ const port = process.env.PORT || 3000;
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(storageConnectionString);
 const containerClient = blobServiceClient.getContainerClient(blobContainerName); // blob is my container name
-const client = Client.fromConnectionString(iotHubConnectionString);
+// const client = Client.fromConnectionString(iotHubConnectionString);
 
 app.use(fileUpload({ createParentPath: true }));
 app.use(bodyParser.json());
