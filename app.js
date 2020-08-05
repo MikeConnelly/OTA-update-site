@@ -50,7 +50,7 @@ app.post('/update', async (req, res) => {
       await blockBlobClient.uploadFile(filepath);
 
       const data = {
-        'methodName': 'stop',
+        'methodName': 'update',
         'responseTimeoutInSeconds': 60,
         'payload': {}
       };
