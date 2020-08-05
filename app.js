@@ -49,18 +49,18 @@ app.post('/update', async (req, res) => {
       const blockBlobClient = containerClient.getBlockBlobClient(staticFileName);
       await blockBlobClient.uploadFile(filepath);
 
-      const data = {
-        'methodName': 'update',
-        'responseTimeoutInSeconds': 60,
-        'payload': {}
-      };
-      client.invokeDeviceMethod(iotDeviceName, data, (err, result) => {
-        if (err && !(err instanceof SyntaxError)) {
-          console.error(err);
-        } else {
-          console.log('successfully invoked device method');
-        }
-      });
+      // const data = {
+      //   'methodName': 'update',
+      //   'responseTimeoutInSeconds': 60,
+      //   'payload': {}
+      // };
+      // client.invokeDeviceMethod(iotDeviceName, data, (err, result) => {
+      //   if (err && !(err instanceof SyntaxError)) {
+      //     console.error(err);
+      //   } else {
+      //     console.log('successfully invoked device method');
+      //   }
+      // });
       
       fs.unlink(filepath, err => {
         if (err) { console.error(err); }
