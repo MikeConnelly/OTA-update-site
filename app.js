@@ -19,7 +19,7 @@ const port = process.env.PORT || 3000;
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(storageConnectionString);
 const containerClient = blobServiceClient.getContainerClient(blobContainerName); // blob is my container name
-// const client = Client.fromConnectionString(iotHubConnectionString);
+const client = Client.fromConnectionString(iotHubConnectionString);
 
 app.use(fileUpload({ createParentPath: true }));
 app.use(bodyParser.json());
@@ -49,18 +49,18 @@ app.post('/update', async (req, res) => {
       const blockBlobClient = containerClient.getBlockBlobClient(staticFileName);
       await blockBlobClient.uploadFile(filepath);
 
-      // const data = {
-      //   'methodName': 'update',
-      //   'responseTimeoutInSeconds': 60,
-      //   'payload': {}
-      // };
-      // client.invokeDeviceMethod(iotDeviceName, data, (err, result) => {
-      //   if (err && !(err instanceof SyntaxError)) {
-      //     console.error(err);
-      //   } else {
-      //     console.log('successfully invoked device method');
-      //   }
-      // });
+      const data = {
+        'methodName': 'update',
+        'responseTimeoutInSeconds': 60,
+        'payload': {}
+      };
+      client.invokeDeviceMethod(iotDeviceName, data, (err, result) => {
+        if (err && !(err instanceof SyntaxError)) {
+          console.error(err);
+        } else {
+          console.log('successfully invoked device method');
+        }
+      });
       
       fs.unlink(filepath, err => {
         if (err) { console.error(err); }
