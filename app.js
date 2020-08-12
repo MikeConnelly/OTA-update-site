@@ -45,9 +45,9 @@ app.post('/update', async (req, res) => {
       // using staticFileName instead of file.name
       // that or send the device the name of the url with every direct method
       filepath = path.join('./uploads/', staticFileName);
-      file.mv(filepath); // saves file locally
+      await file.mv(filepath); // saves file locally
       const blockBlobClient = containerClient.getBlockBlobClient(staticFileName);
-      await blockBlobClient.uploadFile(filepath);
+      await blockBlobClient.uploadFile(filepath, { blockSize: file.size });
 
       const data = {
         'methodName': 'update',
